@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    .calculator {
+      background-color: black;
+      padding: 20px;
+      border-radius: 10px;
+      width: 320px;
+    }
+
+    .display {
+      width: calc(100% - 20px);
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 24px;
+      border: none;
+      background-color: #333;
+      color: white;
+    }
+
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 10px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 20px;
+      border: none;
+      background-color: #666;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="display" id="display" disabled>
+    <div class="keys">
+      <button class="button">AC</button>
+      <button class="button">DEL</button>
+      <button class="button">%</button>
+      <button class="button">/</button>
+      <button class="button">7</button>
+      <button class="button">8</button>
+      <button class="button">9</button>
+      <button class="button">*</button>
+      <button class="button">4</button>
+      <button class="button">5</button>
+      <button class="button">6</button>
+      <button class="button">-</button>
+      <button class="button">1</button>
+      <button class="button">2</button>
+      <button class="button">3</button>
+      <button class="button">+</button>
+      <button class="button">0</button>
+      <button class="button">00</button>
+      <button class="button">.</button>
+      <button class="button">=</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+    let buttons = document.querySelectorAll('.button');
+    let string = '';
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const value = e.target.innerHTML;
+        if (value === 'DEL') {
+          string = string.slice(0, -1);
+          display.value = string;
+        } else if (value === 'AC') {
+          string = '';
+          display.value = '';
+        } else if (value === '=') {
+          try {
+            string = eval(string).toString();
+            display.value = string;
+          } catch (error) {
+            display.value = 'Error';
+            string = '';
+          }
+        } else {
+          string += value;
+          display.value = string;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
